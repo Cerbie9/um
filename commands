@@ -1,0 +1,11 @@
+--- layout: page title: Commands permalink: /commands --- {%- assign showCommands = site.data.commands.size -%} {%- assign buy = "" -%} {%- assign commands_sorted = site.data.commands | sort: "name" -%} {%- for command in commands_sorted -%} {%- if command.name == "Buy" -%} {%- capture buy -%} {{- command.usage | split: " " | first -}} {%- endcapture -%} {%- break -%} {%- endif -%} {%- endfor -%}
+{%- if showCommands > 0 -%} {%- include search.html id='commands' type='Command' placeholder=site.data.language.search_commands -%} {%- if site.commands.userlevel -%} {%- endif -%} {%- for command in commands_sorted -%} {%- if site.commands.userlevel -%} {%- endif -%} {%- endfor -%}
+{{- site.data.language.command_name_header -}}	{{- site.data.language.user_level_header -}}	{{- site.data.language.description_header -}}
+{{- command.name -}} {%- if site.commands.mod -%}
+{{- site.data.language.from | replace: '%s', command.data.mod -}} {%- endif -%} {%- if site.commands.usage -%}
+{% capture usage %} {{ command.usage | prepend: " " | replace: "(", "<" | replace: ")", ">" }} {% endcapture %} {{- site.data.language.usage | replace: '%s', usage -}} {%- endif -%}	{{- command.userLevel -}}	{{- command.description -}} {%- if site.commands.shortcut and command.shortcut -%}
+{% capture shortcut %} {{ buy }} {{ command.usage | slice: 1, command.usage.size | replace: "(" , "<" | replace: ")", ">" }} {% endcapture %} {{- site.data.language.shortcut | replace: '%s', shortcut -}} {%- endif -%}
+{%- else -%}
+{{- site.data.languages.no_commands -}}
+
+{%- endif -%}
