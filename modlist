@@ -1,0 +1,4 @@
+--- title: Mod List layout: page permalink: /modlist ---
+{%- include search.html id='mods' type='Mod' placeholder=site.data.language.search_mods -%} {%- if site.mods.author -%} {%- endif -%} {%- if site.mods.version -%} {%- endif -%} {%- for mod in site.data.modlist -%} {%- capture link -%} {%- if mod.steamId == nil or mod.steamId == "" or mod.steamId == "0" -%} https://steamcommunity.com/workshop/browse/?appid=294100&searchtext={{- mod.name | url_encode-}} {%- else -%} https://steamcommunity.com/sharedfiles/filedetails/?id={{- mod.steamId -}} {%- endif -%} {%- endcapture -%} {%- if site.mods.author -%} {%- endif -%} {%- if site.mods.version -%} {%- endif -%} {%- endfor -%}
+{{- site.data.language.mod_name_header -}}	{{- site.data.language.author_header -}}	{{- site.data.language.version_header -}}
+{{- mod.name -}}	{{- mod.author -}}	{{- mod.version -}}
